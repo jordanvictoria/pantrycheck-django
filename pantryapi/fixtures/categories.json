@@ -1,0 +1,86 @@
+[
+    {
+      "model": "pantryapi.category",
+      "pk": 1,
+      "fields":{
+          "name": "Produce"
+      }
+    },
+    {
+        "model": "pantryapi.category",
+        "pk": 2,
+        "fields":{
+            "name": "Meat & Seafood"
+        }
+      },
+      {
+        "model": "pantryapi.category",
+        "pk": 3,
+        "fields":{
+            "name": "Beverages"
+        }
+      },
+      {
+        "model": "pantryapi.category",
+        "pk": 4,
+        "fields": {
+            "name": "Dairy & Eggs"
+        }
+      },
+      {
+        "model": "pantryapi.category",
+        "pk": 5,
+        "fields":{
+            "name": "Bakery"
+        }
+      },
+      {
+        "model": "pantryapi.category",
+        "pk": 6,
+        "fields":{ 
+            "name": "Deli"
+        }
+      },
+      {
+        "model": "pantryapi.category",
+        "pk": 7,
+        "fields":{
+            "name": "Frozen Foods"
+        }
+      },
+      {
+        "model": "pantryapi.category",
+        "pk": 8,
+        "fields":{
+            "name": "Cleaning & Household"
+        }
+      },
+      {
+        "model": "pantryapi.category",
+        "pk": 9,
+        "fields":{
+            "name": "Pantry"
+        }
+      },
+      {
+        "model": "pantryapi.category",
+        "pk": 10,
+        "fields":{
+            "name": "Pet"
+        }
+      },
+      {
+        "model": "pantryapi.category",
+        "pk": 11,
+        "fields":{
+            "name": "Baby"
+        }
+      },
+      {
+        "model": "pantryapi.category",
+        "pk": 12,
+        "fields":{  
+            "name": "Miscellaneous"
+        }
+      }
+  ]

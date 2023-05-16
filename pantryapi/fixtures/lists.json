@@ -1,0 +1,26 @@
+[
+    {
+    "model": "pantryapi.list",
+    "pk": 1,
+    "fields":{
+        "user": 1,
+        "name": "Aldi List",
+        "notes": "Ask Amy what kind of wine she wants me to pick up for her",
+        "date_created": "2023-03-04",
+        "completed": false,
+        "date_completed": null
+        }
+    },
+    {
+        "model": "pantryapi.list",
+        "pk": 2,
+        "fields":{
+            "user": 1,
+            "name": "Kroger List",
+            "notes": "",
+            "date_created": "2023-03-01",
+            "completed": true,
+            "date_completed": "2023-03-07"
+            }
+        }
+  ]

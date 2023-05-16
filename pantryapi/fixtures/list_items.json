@@ -1,0 +1,57 @@
+[
+    {
+    "model": "pantryapi.listitem",
+    "pk": 1,
+    "fields":{
+      "user": 1,
+      "list": 1,
+      "item": 1,
+      "quantity": 2,
+      "priority": false
+    }
+    },
+    {
+    "model": "pantryapi.listitem",
+    "pk": 2,
+    "fields":{
+      "user": 1,
+      "list": 1,
+      "quantity": 2,
+      "priority": true,
+      "item": 3
+    }
+    },
+    {
+    "model": "pantryapi.listitem",
+    "pk": 3,
+    "fields":{
+      "user": 1,
+      "list": 1,
+      "quantity": 1,
+      "priority": true,
+      "item": 2
+    }
+},
+    {
+    "model": "pantryapi.listitem",
+    "pk": 4,
+    "fields":{
+      "user": 1,
+      "list": 1,
+      "quantity": "2",
+      "priority": true,
+      "item": 4
+    }
+    },
+    {
+    "model": "pantryapi.listitem",
+    "pk": 5,
+    "fields":{
+      "user": 1,
+      "list": 1,
+      "quantity": "1",
+      "priority": true,
+      "item": 5
+    }
+}
+  ]

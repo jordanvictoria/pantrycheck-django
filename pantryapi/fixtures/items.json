@@ -1,0 +1,57 @@
+[
+    {
+    "model": "pantryapi.item",
+    "pk": 1,
+    "fields":{
+
+        "user": 1,
+        "name": "Blueberries",
+        "category": 1,
+        "price": 5.00
+        }
+    },
+    {
+    "model": "pantryapi.item",
+    "pk": 2,
+    "fields":{
+
+        "user": 1,
+        "name": "Apples",
+        "category": 1,
+        "price": 3.00
+    }
+    },
+    {
+        "model": "pantryapi.item",
+        "pk": 3,
+        "fields":{
+    
+            "user": 1,
+            "name": "Dave's Bread",
+            "category": 5,
+            "price": 6.00
+        }
+    },
+    {
+        "model": "pantryapi.item",
+        "pk": 4,
+        "fields":{
+    
+            "user": 1,
+            "name": "Chicken",
+            "category": 2,
+            "price": 12.00
+        }
+    },
+    {
+    "model": "pantryapi.item",
+    "pk": 5,
+    "fields":{
+
+        "user": 1,
+        "name": "Frothy Monkey Coffee Beans",
+        "category": 3,
+        "price": 14.00
+    }
+    }
+  ]
