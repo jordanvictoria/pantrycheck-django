@@ -1,0 +1,9 @@
+[
+    {
+        "model": "pantryapi.pantryuser",
+        "pk": 1,
+        "fields": {
+            "user": 1
+        }
+    }
+]

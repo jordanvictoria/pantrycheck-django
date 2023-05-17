@@ -18,13 +18,14 @@ from django.contrib import admin
 from django.conf.urls import include
 from django.urls import path
 from rest_framework import routers
-from pantryapi.views import ListItemView, ListView, ItemView, CategoryView, register_user, login_user
+from pantryapi.views import ListItemView, ListView, ItemView, CategoryView, register_user, login_user, PantryUserView
 
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'categories', CategoryView, 'category')
 router.register(r'lists', ListView, 'list')
 router.register(r'items', ItemView, 'item')
 router.register(r'listitems', ListItemView, 'listitem')
+router.register(r'pantryusers', PantryUserView, 'pantryuser')
 
 
 urlpatterns = [

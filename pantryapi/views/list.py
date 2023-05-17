@@ -2,7 +2,7 @@ from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
-from pantryapi.models import List
+from pantryapi.models import List, PantryUser
 
 
 
@@ -48,7 +48,7 @@ class ListView(ViewSet):
             Response -- JSON serialized list instance
         """
         
-        current_user = request.auth.user.id
+        current_user = PantryUser.objects.get(user=request.auth.user)
         serializer = CreateListSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save(user=current_user)
@@ -81,15 +81,26 @@ class ListView(ViewSet):
 
 
 
-class ListSerializer(serializers.ModelSerializer):
-    """JSON serializer for lists
-    """
-
-    class Meta:
-        model = List
-        fields = ('id', 'name', 'notes', 'date_created', 'completed', 'date_completed')
 
 class CreateListSerializer(serializers.ModelSerializer):
     class Meta:
         model = List
         fields = ['id', 'name', 'notes', 'date_created', 'completed', 'date_completed']
+
+class UserListSerializer(serializers.ModelSerializer):
+    """For users."""
+    class Meta:
+        model = PantryUser
+        fields = ('id', 'full_name')
+
+
+
+class ListSerializer(serializers.ModelSerializer):
+    """JSON serializer for lists
+    """
+
+    user = UserListSerializer(many=False)
+
+    class Meta:
+        model = List
+        fields = ('id', 'user', 'name', 'notes', 'date_created', 'completed', 'date_completed')

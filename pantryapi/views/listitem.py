@@ -2,7 +2,7 @@ from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
-from pantryapi.models import ListItem, List, Item
+from pantryapi.models import ListItem, List, Item, PantryUser
 
 
 
@@ -56,10 +56,11 @@ class ListItemView(ViewSet):
             Response -- JSON serialized list item instance
         """
         
-        current_user = request.auth.user.id
+        user = PantryUser.objects.get(user=request.auth.user.id)
+
         serializer = CreateListItemSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        serializer.save(user=current_user)
+        serializer.save(user=user)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def update(self, request, pk):
@@ -74,7 +75,7 @@ class ListItemView(ViewSet):
         list_item.priority = request.data["priority"]
 
         item = Item.objects.get(pk=request.data["item"])
-        list_item.type = item
+        list_item.item = item
 
         list = List.objects.get(pk=request.data["list"])
         list_item.list = list
@@ -92,15 +93,41 @@ class ListItemView(ViewSet):
 
 
 
+class CreateListItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ListItem
+        fields = ['id', 'list', 'item', 'quantity', 'priority']
+
+
+class ItemSerializer(serializers.ModelSerializer):
+    """For items."""
+    class Meta:
+        model = Item
+        fields = ('id', 'user', 'name', 'category', 'price')
+
+class ListSerializer(serializers.ModelSerializer):
+    """For lists."""
+    class Meta:
+        model = List
+        fields = ('id', 'user', 'name', 'notes', 'date_created', 'completed', 'date_completed')
+
+class UserListItemSerializer(serializers.ModelSerializer):
+    """For users."""
+    class Meta:
+        model = PantryUser
+        fields = ('id', 'full_name')
+
+
+
+
 class ListItemSerializer(serializers.ModelSerializer):
     """JSON serializer for list items
     """
+    item = ItemSerializer(many=False)
+    user = UserListItemSerializer(many=False)
+    list = ListSerializer(many=False)
 
     class Meta:
         model = ListItem
         fields = ('id', 'user', 'list', 'item', 'quantity', 'priority')
-
-class CreateListItemSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = ListItem
-        fields = ['id', 'user', 'list', 'item', 'quantity', 'priority']
+        depth = 1
