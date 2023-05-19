@@ -2,7 +2,7 @@ from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
-from pantryapi.models import ListItem, List, Item, PantryUser
+from pantryapi.models import ListItem, List, Item, PantryUser, Category
 
 
 
@@ -34,12 +34,19 @@ class ListItemView(ViewSet):
 
         list_items = ListItem.objects.filter(user=request.auth.user.id)
 
+        c = request.query_params.get('category', None)
+        p = request.query_params.get('priority', None)
+        listId = request.query_params.get('listId', None)
+        filteredItems = []
+        if listId is not None:
+            list = List.objects.get(pk=listId)
+            list_items = list_items.filter(list=list)
+        if c is not None:
+            category = Category.objects.get(pk=c)
+            list_items = list_items.filter(item__category = category)
+        if p is not None:
+            list_items = list_items.filter(priority=True)
 
-        # list_id = request.query_params.get('listId', None)
-        # # filteredListItems = []
-        # if list_id is not None:
-        #     list = List.objects.get(pk=list_id)
-        #     list_items = list_items.filter(list=list)
 
 
 
@@ -79,6 +86,9 @@ class ListItemView(ViewSet):
 
         list = List.objects.get(pk=request.data["list"])
         list_item.list = list
+
+        user = PantryUser.objects.get(pk=request.data["user"])
+        list_item.user = user
         
         list_item.save()
 
@@ -104,6 +114,7 @@ class ItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = Item
         fields = ('id', 'user', 'name', 'category', 'price')
+        depth = 1
 
 class ListSerializer(serializers.ModelSerializer):
     """For lists."""
@@ -130,4 +141,4 @@ class ListItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = ListItem
         fields = ('id', 'user', 'list', 'item', 'quantity', 'priority')
-        depth = 1
+        depth = 2

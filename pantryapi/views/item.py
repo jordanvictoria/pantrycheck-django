@@ -34,6 +34,11 @@ class ItemView(ViewSet):
 
         items = Item.objects.filter(user=request.auth.user.id)
 
+        search = request.query_params.get('search', None)
+        filteredItems = []
+        if search is not None:
+            items = items.filter(name__icontains = search)
+
 
 
 
@@ -64,8 +69,12 @@ class ItemView(ViewSet):
         item = Item.objects.get(pk=pk)
         item.name = request.data["name"]
         item.price = request.data["price"]
-        category = Category.objects.get(pk=request.data["category"])
-        item.category = category
+        item_category = Category.objects.get(pk=request.data["category"])
+        item.category = item_category
+
+        user = PantryUser.objects.get(pk=request.data["user"])
+        item.user = user
+
         item.save()
 
         return Response(None, status=status.HTTP_204_NO_CONTENT)

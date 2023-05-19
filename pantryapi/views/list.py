@@ -67,6 +67,9 @@ class ListView(ViewSet):
         list.date_created = request.data["date_created"]
         list.completed = request.data["completed"]
         list.date_completed = request.data["date_completed"]
+
+        user = PantryUser.objects.get(pk=request.data["user"])
+        list.user = user
         
         list.save()
 
