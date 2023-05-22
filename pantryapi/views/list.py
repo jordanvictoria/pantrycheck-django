@@ -107,3 +107,4 @@ class ListSerializer(serializers.ModelSerializer):
     class Meta:
         model = List
         fields = ('id', 'user', 'name', 'notes', 'date_created', 'completed', 'date_completed')
+        depth = 1
