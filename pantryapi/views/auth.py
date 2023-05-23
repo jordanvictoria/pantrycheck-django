@@ -65,7 +65,7 @@ def register_user(request):
     token = Token.objects.create(user=pantry_user.user)
    
     # Return the token to the client
-    data = { 'token': token.key, 'valid': True }
+    data = { 'token': token.key, 'valid': True, 'user_id': pantry_user.user.id }
     return Response(data)
 
 

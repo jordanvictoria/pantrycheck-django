@@ -38,7 +38,7 @@
     "fields":{
       "user": 1,
       "list": 1,
-      "quantity": "2",
+      "quantity": 2,
       "priority": true,
       "item": 4
     }
@@ -48,10 +48,21 @@
     "pk": 5,
     "fields":{
       "user": 1,
-      "list": 1,
-      "quantity": "1",
+      "list": 2,
+      "quantity": 1,
       "priority": true,
       "item": 5
     }
+},
+{
+  "model": "pantryapi.listitem",
+  "pk": 6,
+  "fields":{
+    "user": 1,
+    "list": 2,
+    "quantity": 2,
+    "priority": false,
+    "item": 2
+  }
 }
   ]
