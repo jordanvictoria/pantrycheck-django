@@ -5,7 +5,7 @@
     "fields":{
         "user": 1,
         "name": "Aldi List",
-        "notes": "Ask Amy what kind of wine she wants me to pick up for her",
+        "notes": "Remember to bring coupons!",
         "date_created": "2023-03-04",
         "completed": false,
         "date_completed": null

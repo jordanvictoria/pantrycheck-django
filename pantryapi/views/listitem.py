@@ -2,7 +2,7 @@ from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
-from pantryapi.models import ListItem, List, Item
+from pantryapi.models import ListItem, List, Item, PantryUser, Category
 
 
 
@@ -34,12 +34,19 @@ class ListItemView(ViewSet):
 
         list_items = ListItem.objects.filter(user=request.auth.user.id)
 
+        c = request.query_params.get('category', None)
+        p = request.query_params.get('priority', None)
+        listId = request.query_params.get('listId', None)
+        filteredItems = []
+        if listId is not None:
+            list = List.objects.get(pk=listId)
+            list_items = list_items.filter(list=list)
+        if c is not None:
+            category = Category.objects.get(pk=c)
+            list_items = list_items.filter(item__category = category)
+        if p is not None:
+            list_items = list_items.filter(priority=True)
 
-        # list_id = request.query_params.get('listId', None)
-        # # filteredListItems = []
-        # if list_id is not None:
-        #     list = List.objects.get(pk=list_id)
-        #     list_items = list_items.filter(list=list)
 
 
 
@@ -56,10 +63,11 @@ class ListItemView(ViewSet):
             Response -- JSON serialized list item instance
         """
         
-        current_user = request.auth.user.id
+        user = PantryUser.objects.get(user=request.auth.user.id)
+
         serializer = CreateListItemSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        serializer.save(user=current_user)
+        serializer.save(user=user)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def update(self, request, pk):
@@ -74,10 +82,13 @@ class ListItemView(ViewSet):
         list_item.priority = request.data["priority"]
 
         item = Item.objects.get(pk=request.data["item"])
-        list_item.type = item
+        list_item.item = item
 
         list = List.objects.get(pk=request.data["list"])
         list_item.list = list
+
+        user = PantryUser.objects.get(pk=request.data["user"])
+        list_item.user = user
         
         list_item.save()
 
@@ -92,15 +103,42 @@ class ListItemView(ViewSet):
 
 
 
+class CreateListItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ListItem
+        fields = ['id', 'list', 'item', 'quantity', 'priority']
+
+
+class ItemSerializer(serializers.ModelSerializer):
+    """For items."""
+    class Meta:
+        model = Item
+        fields = ('id', 'user', 'name', 'category', 'price')
+        depth = 1
+
+class ListSerializer(serializers.ModelSerializer):
+    """For lists."""
+    class Meta:
+        model = List
+        fields = ('id', 'user', 'name', 'notes', 'date_created', 'completed', 'date_completed')
+
+class UserListItemSerializer(serializers.ModelSerializer):
+    """For users."""
+    class Meta:
+        model = PantryUser
+        fields = ('id', 'full_name')
+
+
+
+
 class ListItemSerializer(serializers.ModelSerializer):
     """JSON serializer for list items
     """
+    item = ItemSerializer(many=False)
+    user = UserListItemSerializer(many=False)
+    list = ListSerializer(many=False)
 
     class Meta:
         model = ListItem
         fields = ('id', 'user', 'list', 'item', 'quantity', 'priority')
-
-class CreateListItemSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = ListItem
-        fields = ['id', 'user', 'list', 'item', 'quantity', 'priority']
+        depth = 2
