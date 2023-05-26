@@ -6,7 +6,7 @@
 
 For some, grocery shopping is stressful and time-consuming. It can be hard to keep track of what’s in your pantry, and even more difficult to keep in mind the shelf-lives of various items. Adequately planning for your next run to the grocery store can save you time and money.
 
-My goals for this application were to gain a deeper understanding of how to utilize Django Models to build an interface with powerful relational databases.
+My main goal for this application was to gain a deeper understanding of how to utilize Django Models to build an interface with a sufficient relational database.
 
 
 ## Features
