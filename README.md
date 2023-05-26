@@ -6,7 +6,7 @@
 
 For some, grocery shopping is stressful and time-consuming. It can be hard to keep track of what’s in your pantry, and even more difficult to keep in mind the shelf-lives of various items. Adequately planning for your next run to the grocery store can save you time and money.
 
-My goals for this application were to incorporate full CRUD functionality with many-to-many relationships, gain a deeper understanding of React Hooks, props, and state, while also incorporating an intuitive, functional user interface, without the use of bootstrapped components.
+My goals for this application were to gain a deeper understanding of how to utilize Django Models to build an interface with powerful relational databases.
 
 
 ## Features
@@ -20,18 +20,16 @@ Features include:
 * Users can filter items on their list by their category and/or priority value
 
 ## ERD
-<img src="src/components/images/pantryERD.png">
+<img src="images/pantryERD.png">
 
 
 
-## GIFs
-<img src="src/components/images/PantryCheck.gif" width=1000> 
 
 
 
 
 ## Public Link
-https://netlify--sparkling-pasca-2d369e.netlify.app/login
+https://netlify--sparkling-pasca-2d369e.netlify.app
 
 
 
