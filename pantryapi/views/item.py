@@ -69,6 +69,7 @@ class ItemView(ViewSet):
         item = Item.objects.get(pk=pk)
         item.name = request.data["name"]
         item.price = request.data["price"]
+        
         item_category = Category.objects.get(pk=request.data["category"])
         item.category = item_category
 
